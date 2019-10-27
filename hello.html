@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<!-- Webpage Title -->
+    <title>Hello, world!</title>
+
+	<!-- Required meta tags -->
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	
+	<!-- HTML에 이 부분을 추가하고 -->
+	<link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+	<style>
+		.wrapper {
+			width: 90%;
+			margin: 5% auto;
+		}
+		.card-deck {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		.comment {
+			color: blue;
+			font-weight: bold;
+		}
+		.forms{
+			width: 60%;
+			margin: 0 auto;
+			padding: 30px ;
+			border: 3px solid gray;
+			border-radius: 10px;
+		}
+		* {
+			font-family: "Goudy Bookletter 1911", sans-serif;
+		}
+
+    #posting-box {
+      display: none;
+    }  
+
+	</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script>
+    function hey(){
+    let url = $('#article-url').val();
+    let comment = $('#article-comment').val();
+    let author = '김기동';
+    
+    $.ajax({
+      type: "POST",
+      url: "http://spartacodingclub.shop/post",
+      data: { url_give:url, comment_give:comment, author_give:author },
+      success: function(response){
+      alert('저장되었습니다');
+      }
+    })
+    }
+
+    function listing(){
+    let author = '김기동';
+    
+    $.ajax({
+      type: "GET",
+      url: "http://spartacodingclub.shop/post",
+      data: {author_give:author },
+      success: function(response){
+        let articles = response['articles'];
+        for (let i = 0; i < articles.length; i++) {
+          let card = `
+            <div class="card">
+              <img class="card-img-top" src="${articles[i]['image']}" alt="Card image cap">
+              <div class="card-body">
+              <a href="${articles[i]['url']}" class="card-title">${articles[i]['title']}</a>
+              <p class="card-text">${articles[i]['desc']}</p>
+              <p class="card-text comment">${articles[i]['comment']}</p>
+              </div>
+            </div>
+            `;          
+          $('#card-box').append(card);
+        }
+      }
+    })
+    }
+
+    $(document).ready(function(){
+      listing();
+    });
+
+    function posting() {
+      alert('잘 되나 확인하기!');
+    }
+
+</script>
+
+<script>
+function openclose() {
+    if ( $('#posting-box').css('display') == 'block' ) {
+      $('#posting-box').hide();
+      $('#btn-posting-box').text('포스팅 박스 열기')
+    } else {
+      $('#posting-box').show();
+      $('#btn-posting-box').text('포스팅 박스 닫기')
+    }
+  }
+</script>
+
+
+</head>
+<body>
+	<div class="wrapper">
+	<div class="jumbotron">
+	  <h1 class="display-4">링크 메모장</h1>
+	  <p class="lead">중요한 링크를 저장해두고, 나중에 볼 수 있는 공간입니다.</p>
+	  <hr class="my-4">
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" role="button" id='btn-posting-box' onclick=openclose()>포스팅 박스 열기</a>
+    </p>
+  </div>
+	</div>
+	
+
+<div id="posting-box" class="form-post">
+<form class="forms">
+  <div class="form-group">
+    <label for="exampleInputEmail1">아티클 URL</label>
+    <input type="text" id="article-url" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">노트</label>
+    <textarea class="form-control" id= "article-comment" rows="3"></textarea>
+  </div>
+  <div onclick="hey()" onclick="listing()" class="btn btn-primary">기사저장</div>
+</form>
+</div>
+
+
+<div class="wrapper">
+  <div class="card-columns" id="card-box">
+  </div>
+
+</div>
+
+
+</body>
+</html>
+

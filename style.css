@@ -1,0 +1,27 @@
+		body {
+			background-color: black;
+		}
+		.mytitle {
+			color: yellow;
+			font-weight: 500;
+		}
+		.small-font {
+			font-size: 30px;
+		}
+		.main {
+			margin: 0 auto;
+			width: 0px;
+		}
+		a {
+			text-decoration: none;
+			color: #010101;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		h1:hover {
+			color:green;
+		}
+		* {
+			font-family: 'Stylish', sans-serif;
+		}
