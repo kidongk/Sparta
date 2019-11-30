@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Webpage Title -->
+	<title>StockScreener</title>
+
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<!-- JS -->
+	<!--
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    -->
+
+	<!-- 구글폰트 -->
+	<link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet" rel="stylesheet">
+	</div>
+
+
+	<style>
+    .title {
+        margin: 2% 2%;
+    }
+	.highscore {
+		width: 60%;
+		margin: 1% 2%;
+        padding: 1%;
+        border: solid lightgray;
+        border-radius: 5px;
+	}
+	.filing {
+		width: 60%;
+		margin: 1% 2%;
+        padding: 1%;
+        border: solid lightgray;
+        border-radius: 5px;
+	}
+	.tableclass {
+        width: 96%;
+		margin: 2% 2%;
+	}
+	.pagination {
+   		margin: 1% 2%;
+	}
+
+	</style>
+
+<!--
+    db.screener.insert_one({'ticker': ticker_give,'name': name_give, 'sector': sector_give, 'date': date_give, 'mktcap': mktcap_give, 'price': price_give, 'rev': rev_give, 'op': op_give, 'np': np_give, 'asset': asset_give, 'liab': liab_give, 'equity': equity_give, 'p/e': pe_give, 'p/b': pb_give, 'roe': roe_give, 'divyield': divyield_give})
+    'rev': rev_give, 'op': op_give, 'np': np_give, 'asset': asset_give, 'liab': liab_give, 'equity': equity_give, 'p/e': pe_give, 'p/b': pb_give, 'roe': roe_give, 'divyield': divyield_give})
+-->
+
+<script>
+    function listing() {
+      $.ajax({
+        type: "GET",
+        url: "/data",
+        data: {},
+        success: function(response){
+          let stock = response['stock_list'];
+          for (let i = 0 ; i < stock.length; i++) {
+            let row = `
+              <tr>
+                <td scope="row">${stock[i]['ticker']}</td>
+                <td>${stock[i]['name']}</td>
+                <td>${stock[i]['sector']}</td>
+                <td>${stock[i]['fiscalyear']}</td>
+                <td>${stock[i]['mktcap']}</td>
+                <td>${stock[i]['price']}</td>
+                <td>${stock[i]['rev']}</td>
+                <td>${stock[i]['op']}</td>
+                <td>${stock[i]['np']}</td>
+                <td>${stock[i]['asset']}</td>
+                <td>${stock[i]['liab']}</td>
+                <td>${stock[i]['equity']}</td>
+                <td>${stock[i]['p/e']}</td>
+                <td>${stock[i]['p/b']}</td>
+                <td>${stock[i]['roe']}</td>
+                <td>${stock[i]['divyield']}</td>
+              </tr>
+              `;
+            $('#table_box').append(row);
+        }
+      }
+    })
+    }
+
+    $(document).ready(function(){
+      listing();
+    });
+
+</script>
+
+</head>
+<body>
+
+    <div class="title">
+    <h1>JK's Stock Screener</h1>
+    </div>
+
+	<div class="highscore">
+      <p><font color="gray" size="4"><b>스크린 통과 주식</b></font></p>
+        <p>10점 만점 주식들 나열.</p>
+	</div>
+
+    <div class="filing">
+      <p><font color="gray" size="4"><b>공시 요약</b></font></p>
+        <p>전일 공시 내용 중 중요 내용만 정리 요약</p>
+	</div>
+
+<!--
+asset': asset_give, 'liab': liab_give, 'equity': equity_give, 'p/e': pe_give, 'p/b': pb_give, 'roe': roe_give, 'divyield': divyield_give})
+-->
+    <table class="table table-sm table-striped table-hover table-responsive tableclass">
+      <thead>
+        <tr class="text-dark" style="text-align: center">
+          <th scope="col">Code</th>
+          <th scope="col">Company</th>
+          <th scope="col">Sector</th>
+          <th scope="col">Fiscal</th>
+          <th scope="col">MktCap</th>
+          <th scope="col">Price</th>
+          <th scope="col">Rev</th>
+          <th scope="col">OP</th>
+          <th scope="col">NP</th>
+          <th scope="col">Asset</th>
+          <th scope="col">Liab</th>
+          <th scope="col">Equity</th>
+          <th scope="col">P/E</th>
+          <th scope="col">P/B</th>
+          <th scope="col">ROE</th>
+          <th scope="col">DivYield</th>
+        </tr>
+      </thead>
+      <tbody id=table_box>
+              <tr>
+                <td scope="row">a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+                <td>a</td>
+              </tr>
+      </tbody>
+    </table>
+
+<!-- https://getbootstrap.com/docs/4.0/components/pagination/ -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination pagination-sm">
+    <li class="page-item"><a class="page-link text-dark" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+    <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+    <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+    <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
+  </ul>
+</nav>
+
+
+</body>
+</html>
